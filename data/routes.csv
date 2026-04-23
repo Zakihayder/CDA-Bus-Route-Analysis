@@ -1,0 +1,36 @@
+RouteID,RouteName,Direction,Headway
+FR-01,NUST Metro Station to Khanna Pul,Khanna Pul - NUST Metro Station,01:00:00
+FR-01,NUST Metro Station to Khanna Pul,NUST Metro Station - Khanna Pul,01:00:00
+FR-03A,PIMS to Saidpur Village,PIMS - Saidpur Village,00:20:00
+FR-03A,PIMS to Saidpur Village,Saidpur Village - PIMS,00:20:00
+FR-04,PIMS to Bari Imam,PIMS - Bari Imam,00:10:00
+FR-04,PIMS to Bari Imam,Bari Imam - PIMS,00:10:00
+FR-04A,Bari Imam to Quaid e Azam University,Bari Imam - QA University,00:30:00
+FR-04A,Bari Imam to Quaid e Azam University,QA University - Bari Imam,00:30:00
+FR-04B,Diplomatic Enclave Shuttle Service,Diplomatic Shuttle Service,Random
+FR-05,Golara Morh to Taxila,Golara Morh - Taxila,00:05:00
+FR-05,Golara Morh to Taxila,Taxila - Golara Morh,00:05:00
+FR-06,PIMS to Golra Sharif,PIMS - Golra Sharif,01:00:00
+FR-06,PIMS to Golra Sharif,Golra Sharif - PIMS,01:00:00
+FR-07,PIMS to Police Foundation Metro Station,PIMS - Police Foundation,00:10:00
+FR-07,PIMS to Police Foundation Metro Station,Police Foundation - PIMS,00:10:00
+FR-08A,PIMS to Capt. Naeem Tufail Shaheed Chowk Via Abpara,PIMS - Capt.Naeem Tufail Shaheed Chowk Via Abpara,00:20:00
+FR-08A,PIMS to Capt. Naeem Tufail Shaheed Chowk Via Abpara,Capt.Naeem Tufail Shaheed Chowk - PIMS Via Abpara,00:20:00
+FR-08C,PIMS to Capt. Naeem Tufail Shaheed Chowk Via Faizabad,PIMS - Capt.Naeem Tufail Shaheed Chowk Via Faizabad,00:20:00
+FR-08C,PIMS to Capt. Naeem Tufail Shaheed Chowk Via Faizabad,Capt.Naeem Tufail Shaheed Chowk - PIMS Via Faizabad,00:20:00
+FR-09,Khanna Pul to Golra Morh Metro Station,Khanna Pul - Golra Morh Metro Station,00:15:00
+FR-09,Khanna Pul to Golra Morh Metro Station,Golra Morh Metro Station - Khanna Pul,00:15:00
+FR-10,Golra Morh Metro Station to Taxila,Golra Morh Metro Station - Taxila,01:00:00
+FR-10,Golra Morh Metro Station to Taxila,Taxila - Golra Morh Metro Station,01:00:00
+FR-11,Golra Morh Metro Station to I-16,Golra Morh Metro Station - I-16,01:00:00
+FR-11,Golra Morh Metro Station to I-16,I-16 - Golra Morh Metro Station,01:00:00
+FR-12,Taxila to Hassan Abdal,Taxila - Hassan Abdal,01:00:00
+FR-12,Taxila to Hassan Abdal,Hassan Abdal - Taxila,01:00:00
+FR-13,Golra Morh Metro Station to Fateh Jang,Golra Morh Metro Station - Fateh Jang,01:00:00
+FR-13,Golra Morh Metro Station to Fateh Jang,Fateh Jang - Golra Morh Metro Station,01:00:00
+FR-14,Barakahu to Mandi Morh,Barakahu - Mandi Mor,00:15:00
+FR-14,Barakahu to Mandi Morh,Mandi Mor - Barakahu,00:15:00
+FR-14A,Barakahu to Satra Meel,Barakahu - Satra Meel,00:15:00
+FR-14A,Barakahu to Satra Meel,Satra Meel - Barakahu,00:15:00
+FR-15,Khanna Pul to T-Chowk,Khanna Pul - T-Chowk,00:30:00
+FR-15,Khanna Pul to T-Chowk,T-Chowk - Khanna Pul,00:30:00

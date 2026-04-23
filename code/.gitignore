@@ -1,0 +1,11 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data and large files
+data/extracted_routes/
+data/*.pdf
+data/*.xes
