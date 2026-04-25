@@ -1,1 +1,9 @@
-
+streamlit
+pandas
+pm4py
+langchain-google-genai
+langchain-experimental
+google-generativeai
+pydeck
+requests
+tabulate
