@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Environment/config
+.env
+.env.*
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+*.tmp
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Project-specific temporary scripts/files
+extract_pdf.py
+extract_pdf_v2.py
+Transit-Map-Islamabad-V-08.pdf
+
+# Optional generated artifacts (uncomment if you do not want to track them)
+# data/extracted_routes/
+# data/*.xes
+# data/*.pdf
