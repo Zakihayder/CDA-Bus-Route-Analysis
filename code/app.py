@@ -64,6 +64,32 @@ st.markdown("""
         animation: riseIn 0.7s ease-out;
     }
 
+    .header-image {
+        max-width: 280px;
+        margin-left: auto;
+        padding: 10px 0 0 0;
+        animation: riseIn 0.7s ease-out;
+    }
+
+    .header-image img {
+        border-radius: 18px;
+        border: 1px solid rgba(125, 211, 252, 0.22);
+        box-shadow: 0 16px 34px rgba(2, 6, 23, 0.45);
+    }
+
+    .header-logo {
+        max-width: 180px;
+        margin-right: auto;
+        padding: 0 10px 0 0;
+        animation: riseIn 0.7s ease-out;
+    }
+
+    .header-logo img {
+        border-radius: 14px;
+        border: 1px solid rgba(125, 211, 252, 0.18);
+        box-shadow: 0 12px 28px rgba(2, 6, 23, 0.4);
+    }
+
     div[data-testid="stMetric"] {
         background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.95));
         border: 1px solid rgba(125, 211, 252, 0.28);
@@ -102,7 +128,7 @@ st.markdown("""
     }
 
     .hero-strip {
-        margin: 8px 0 18px 0;
+        margin: 8px auto 18px auto;
         padding: 12px 14px;
         border-radius: 12px;
         border: 1px solid rgba(125, 211, 252, 0.28);
@@ -111,6 +137,10 @@ st.markdown("""
         gap: 8px;
         flex-wrap: wrap;
         animation: riseIn 0.9s ease-out;
+        justify-content: center;
+        max-width: 820px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .hero-pill {
@@ -579,7 +609,8 @@ def build_network_dot(
     highlight_top_n=3,
     start_nodes=None,
     end_nodes=None,
-    blocked_edges=None
+    blocked_edges=None,
+    threshold_minutes=4
 ):
     if not dfg_freq:
         return "digraph G { label=\"No edges found\"; }"
@@ -602,7 +633,7 @@ def build_network_dot(
         "  graph [bgcolor=\"transparent\", fontname=\"Helvetica\", fontcolor=\"#e2e8f0\", labelloc=\"t\", labeljust=\"l\", overlap=false, splines=true, ranksep=1.0, nodesep=0.35, layout=sfdp];",
         f"  label=\"{title}\";",
         "  node [shape=box, style=\"rounded,filled\", fillcolor=\"#f8fafc\", color=\"#3b82f6\", penwidth=1.1, fontname=\"Helvetica\", fontsize=10];",
-        "  edge [fontname=\"Helvetica\", fontsize=11, fontcolor=\"#f8fafc\", color=\"#22d3ee\"];"
+        "  edge [fontname=\"Helvetica\", fontsize=10, fontcolor=\"#f8fafc\", color=\"#22d3ee\", labelfloat=true, decorate=true];"
     ]
 
     blocked_edges = blocked_edges or set()
@@ -618,6 +649,11 @@ def build_network_dot(
         edge_color = f"#1d{blue_tone:02x}d8"
         dur_text = format_duration_long(perf) if perf is not None else "N/A"
         label = f"{dur_text} | n={freq}"
+
+        if perf is not None and perf >= threshold_minutes * 60:
+            edge_color = "#facc15"
+            pen_width = max(pen_width, 5.0)
+            label = f"THRESHOLD | {dur_text} | n={freq}"
 
         if (origin, destination) in bottleneck_edges:
             edge_color = "#ef4444"
@@ -1101,7 +1137,8 @@ if df is not None:
     st.sidebar.subheader("AI Agent Settings")
     enable_analytics = st.sidebar.checkbox("Enable process map analytics", value=False)
     show_enhanced_maps = st.sidebar.checkbox("Use enhanced network maps", value=True)
-    graph_max_edges = st.sidebar.slider("Map detail (max edges)", min_value=20, max_value=220, value=110, step=10)
+    graph_max_edges = st.sidebar.slider("Map detail (max edges)", min_value=20, max_value=350, value=140, step=10)
+    edge_threshold_minutes = st.sidebar.slider("Threshold range (minutes)", min_value=1, max_value=60, value=4, step=1)
     fast_mode = st.sidebar.checkbox("Fast mode (local grounded answers)", value=True)
     api_key = st.sidebar.text_input("Gemini API Key", type="password")
     st.sidebar.caption("Fast mode is recommended for instant and reliable responses.")
@@ -1127,17 +1164,34 @@ if df is not None:
         display_name = "Comprehensive Network"
         display_trips = int(trips_df['Total_Trips_Numeric'].sum()) if (not trips_df.empty and 'Total_Trips_Numeric' in trips_df.columns) else "N/A"
 
+    # --- Logo (Above Header) ---
+    logo_path = os.path.join('data', 'logo.png')
+    if os.path.exists(logo_path):
+        st.markdown('<div class="header-logo" style="max-width: 160px; margin-bottom: 8px;">', unsafe_allow_html=True)
+        st.image(logo_path, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     # --- Header ---
-    st.markdown(f'<span class="main-title">CDA Transit Analytics</span>', unsafe_allow_html=True)
-    st.markdown(f'<span class="sub-title">Route Analytics: {display_name}</span>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="hero-strip">'
-        '<span class="hero-pill">Process Discovery Ready</span>'
-        '<span class="hero-pill">Agentic Planner Active</span>'
-        '<span class="hero-pill">Personal Maps Enabled</span>'
-        '</div>',
-        unsafe_allow_html=True
-    )
+    header_left, header_right = st.columns([3.2, 1.25], vertical_alignment="center")
+    with header_left:
+        st.markdown(f'<span class="main-title">CDA Transit Analytics</span>', unsafe_allow_html=True)
+        st.markdown(f'<span class="sub-title">Route Analytics: {display_name}</span>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="hero-strip">'
+            '<span class="hero-pill">Process Discovery Ready</span>'
+            '<span class="hero-pill">Agentic Planner Active</span>'
+            '<span class="hero-pill">Personal Maps Enabled</span>'
+            '</div>',
+            unsafe_allow_html=True
+        )
+    with header_right:
+        bus_image_path = os.path.join('data', 'Bus.jpg')
+        if os.path.exists(bus_image_path):
+            st.markdown('<div class="header-image">', unsafe_allow_html=True)
+            st.image(bus_image_path, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.markdown('<div class="header-image" style="padding:16px; text-align:center; color:#94a3b8;">Bus image not found.</div>', unsafe_allow_html=True)
     
     st.markdown(f"""
         <div class="stats-box">
@@ -1177,7 +1231,8 @@ if df is not None:
                     highlight_top_n=3,
                     start_nodes=combined_starts,
                     end_nodes=combined_ends,
-                    blocked_edges=combined_blocked_edges
+                    blocked_edges=combined_blocked_edges,
+                    threshold_minutes=edge_threshold_minutes
                 )
                 st.graphviz_chart(dot_text, use_container_width=True)
             else:
@@ -1202,7 +1257,8 @@ if df is not None:
                     highlight_top_n=3,
                     start_nodes=selected_starts,
                     end_nodes=selected_ends,
-                    blocked_edges=selected_blocked_edges
+                    blocked_edges=selected_blocked_edges,
+                    threshold_minutes=edge_threshold_minutes
                 )
                 st.graphviz_chart(dot_text, use_container_width=True)
             else:
